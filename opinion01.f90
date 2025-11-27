@@ -57,7 +57,7 @@ program kuramoto_opinion
 
  !Read natural frequencies from dat file
   open (unit=114, file='lorentzian0.01.dat', status='old', access='sequential', action='read')
-do m=1, n
+do m=1, N
    read (114,*) omega(m)
 end do
 
