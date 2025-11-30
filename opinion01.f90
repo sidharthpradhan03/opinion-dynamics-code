@@ -151,14 +151,21 @@ end do
      do j=1, nstep
         call compute_W(zp, zn, N, W, adj)
         call compute_rhs(zp, zn, N, W, adj, gamma, k1p)
+        call compute_W(zp + 0.5d0*h*k1p, zn, N, W, adj)
         call compute_rhs(zp + 0.5d0*h*k1p, zn, N, W, adj, gamma, k2p)
+        call compute_W(zp + 0.5d0*h*k2p, zn, N, W, adj)
         call compute_rhs(zp + 0.5d0*h*k2p, zn, N, W, adj, gamma, k3p)
+        call compute_W(zp + h*k3p, zn, N, W, adj)
         call compute_rhs(zp + h*k3p, zn, N, W, adj, gamma, k4p)
         zp = zp + (h/6.d0)*(k1p + 2.d0*k2p + 2.d0*k3p + k4p)
 
+        call compute_W(zp, zn, N, W, adj)
         call compute_rhs(zn, zp, N, W, adj, gamma, k1n)
+        call compute_W(zp, zn + 0.5d0*h*k1n, N, W, adj)
         call compute_rhs(zn + 0.5d0*h*k1n, zp, N, W, adj, gamma, k2n)
+        call compute_W(zp, zn + 0.5d0*h*k2n, N, W, adj)
         call compute_rhs(zn + 0.5d0*h*k2n, zp, N, W, adj, gamma, k3n)
+        call compute_W(zp, zn + h*k3n, N, W, adj)
         call compute_rhs(zn + h*k3n, zp, N, W, adj, gamma, k4n)
         zn = zn + (h/6.d0)*(k1n + 2.d0*k2n + 2.d0*k3n + k4n)
 
